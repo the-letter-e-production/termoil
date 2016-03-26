@@ -1,5 +1,3 @@
-TermOil
-===================
 ##Well oiled terminal apps
 
 
