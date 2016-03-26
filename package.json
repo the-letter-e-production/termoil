@@ -1,11 +1,26 @@
 {
   "name": "termoil",
   "version": "1.0.0",
-  "description": "",
+  "description": "TermOil =================== ##Well oiled terminal apps",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Eric Uldall",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-letter-e-production/termoil.git"
+  },
+  "keywords": [
+    "terminal",
+    "command",
+    "line",
+    "cmd",
+    "commander"
+  ],
+  "bugs": {
+    "url": "https://github.com/the-letter-e-production/termoil/issues"
+  },
+  "homepage": "https://github.com/the-letter-e-production/termoil#readme"
 }
