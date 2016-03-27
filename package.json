@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/the-letter-e-production/termoil/issues"
   },
-  "homepage": "https://github.com/the-letter-e-production/termoil#readme"
+  "homepage": "https://github.com/the-letter-e-production/termoil#readme",
+  "dependencies": {
+    "chalk": "^1.1.1"
+  }
 }
