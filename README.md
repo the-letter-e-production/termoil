@@ -61,7 +61,7 @@ myapp.addSubRoutine(new Termoil.SubRoutine(['sub'], 'sub', mysubapp));
     myapp sub; #this will show usage info for mysubapp
 
 ### Questions, Comments
-We hope this documentation is sufficient to get you started with Express MVC. However, if you have any questions or require help please open a ticket on [GitHub](https://github.com/the-letter-e-production/termoil)
+We hope this documentation is sufficient to get you started with Termoil. However, if you have any questions or require help please open a ticket on [GitHub](https://github.com/the-letter-e-production/termoil)
 
 
 ----------
