@@ -23,6 +23,11 @@ var Termoil = require('termoil');
 ```
 var myapp = new Termoil;
 ```
+### Add app name
+
+```
+myapp.name('Termoil App');
+```
 
 ### Add usage instructions
 
