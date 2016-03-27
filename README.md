@@ -8,6 +8,9 @@ TermOil
 
 >Termoil is built on the simple concept of recursive references to the __Termoil__ object. You create your main instance and then include sub instances *(SubRoutines)*.
 
+```
+npm install --save termoil
+```
 
 ### Include the module
 
