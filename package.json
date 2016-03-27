@@ -1,6 +1,6 @@
 {
   "name": "termoil",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "TermOil =================== ##Well oiled terminal apps",
   "main": "index.js",
   "scripts": {
