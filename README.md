@@ -65,14 +65,17 @@ The option object is the most complex, customizable and useful class in the Term
     - `var keys = ['-n', '-N', '--name'];`
  - name - The property name of this argument
    - `var name = 'name';`
- - type - Argumen type: (requird|optional|flag)
-     - `var type = 'required';`
+ - type - Option type: (required|optional|flag)
+    - `var type = 'required';`
+    - required - This option must have a value passed after it
+    - optional - This option may have a value passed after it, otherwise it will use the default value
+    - flag - Flags are booleans, if passed they result in truth
  - description - A description for the option, used in help page
-     - `var description = 'My description';`
+    - `var description = 'My description';`
  - default - A default value in the event no value is passed
-     - `var default = 'Default Value';`
+    - `var default = 'Default Value';`
  - filter - A function to pass the option value through
-     - `var filter = function(val){ return parseInt(val); };`
+    - `var filter = function(val){ return parseInt(val); };`
 
  
 ### Add A SubRoutine
