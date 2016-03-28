@@ -4,7 +4,7 @@
   "description": "TermOil =================== ##Well oiled terminal apps",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./test"
   },
   "author": "Eric Uldall",
   "license": "ISC",
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/the-letter-e-production/termoil#readme",
   "dependencies": {
-    "chalk": "^1.1.1"
+    "chalk": "^1.1.1",
+    "intern": "^3.0.6",
+    "q": "^1.4.1"
   }
 }
