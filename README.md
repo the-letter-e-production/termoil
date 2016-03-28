@@ -1,7 +1,7 @@
 TermOil
 ===================
 
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/the-letter-e-production/termoil.svg)](http://isitmaintained.com/project/the-letter-e-production/Express-MVC "Average time to resolve an issue") [![Percentage of issues still open](http://isitmaintained.com/badge/open/the-letter-e-production/termoil.svg)](http://isitmaintained.com/project/the-letter-e-production/Express-MVC "Percentage of issues still open") [![Doclets API](https://img.shields.io/badge/doclets-api-blue.svg)](https://doclets.io/the-letter-e-production/termoil/master)
+[![Build Status](https://travis-ci.org/the-letter-e-production/termoil.svg?branch=master)](https://travis-ci.org/the-letter-e-production/termoil) [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/the-letter-e-production/termoil.svg)](http://isitmaintained.com/project/the-letter-e-production/Express-MVC "Average time to resolve an issue") [![Percentage of issues still open](http://isitmaintained.com/badge/open/the-letter-e-production/termoil.svg)](http://isitmaintained.com/project/the-letter-e-production/Express-MVC "Percentage of issues still open") [![Doclets API](https://img.shields.io/badge/doclets-api-blue.svg)](https://doclets.io/the-letter-e-production/termoil/master)
 
 
 ##Well oiled terminal apps
