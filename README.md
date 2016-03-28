@@ -53,8 +53,28 @@ myapp.addVersion(new Termoil.Version('1.0', true)) //add active version 1.0
 myapp.addOption(new Termoil.Option(['-n', '-N', '--name'], 'userName', 'required', 'User name field', 'John Smith', function(val){ return val.toLowerCase(); }));
 ```
 
+__The Option Object:__
+
+The option object is the most complex, customizable and useful class in the Termoil library. It extends the Argument class, which handles processing any arguments passed through *process.argv*
+
 > Check out the Argument api for details on options: https://doclets.io/the-letter-e-production/termoil/master#dl-Argument
 
+*Option Args:* `new Termoil.Option(keys, name, type, description, default, filter);`
+
+ - keys - An array of (n) allowed keys
+    - `var keys = ['-n', '-N', '--name'];`
+ - name - The property name of this argument
+   - `var name = 'name';`
+ - type - Argumen type: (requird|optional|flag)
+     - `var type = 'required';`
+ - description - A description for the option, used in help page
+     - `var description = 'My description';`
+ - default - A default value in the event no value is passed
+     - `var default = 'Default Value';`
+ - filter - A function to pass the option value through
+     - `var filter = function(val){ return parseInt(val); };`
+
+ 
 ### Add A SubRoutine
 
 > There is no limit to how deep you can nest sub routines *(inception style)*
