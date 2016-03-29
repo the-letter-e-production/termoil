@@ -3,13 +3,6 @@ define(function (require) {
     var assert = require('intern/chai!assert');
     var q = require('intern/dojo/node!q');
 
-    /**
-     * override console.log, console.error and process.exit
-     */
-    process.exit = function(code){
-        return code;
-    };
-
     var Termoil, termoil, version, option, subapp, subroutine;
     registerSuite({
         name: 'Termoil',
@@ -21,6 +14,7 @@ define(function (require) {
         },
         'Instance Is Object': function(){
             termoil = new Termoil;
+            termoil._test_mode = true;
             assert.isObject(termoil, 'Termoil Instance is an `object`');
         },
         'Can Set Name': function(){
@@ -93,6 +87,7 @@ define(function (require) {
         'SubRoutine': {
             'Can Create': function(){
                 subapp = new Termoil;
+                subapp._test_mode = true;
                 subapp.name('Sub');
                 subapp.instructions('myapp [options] sub [options]');
                 subapp.addVersion(new Termoil.Version('1.0', true));
