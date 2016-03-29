@@ -103,7 +103,7 @@ define(function (require) {
             },
             'Can Add': function(){
                 termoil.addSubRoutine(subroutine);
-                assert.strictEqual(termoil._subroutines[subroutine.get('keys')[0]], subroutine.get('type'), 'SubRoutine was added');
+                assert.strictEqual(termoil._subroutines[subroutine.get('keys')[0]].get('type'), subroutine.get('type'), 'SubRoutine was added');
             }
         },
         'Parse': {
