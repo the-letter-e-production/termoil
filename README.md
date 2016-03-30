@@ -102,7 +102,7 @@ myapp.parse(Termoil.Skip(process.argv, 2));
 ### Use Options
 There are two main ways to make use of options
 
-1. After calling parse - You can simply access the options using the Termoil getters after you've called `.parse`, since it's a synchronous method. This method can be annoying as you will have to write your own conditionals to handle weather or not options were in fact parsed or SubRoutines got called.
+1. After calling parse - You can simply access the options using the Termoil getters after you've called `.parse`, since it's a synchronous method. This method can be annoying as you will have to write your own conditionals to handle whether or not options were in fact parsed or SubRoutines got called.
 2. Attach to the `.on('parsed')` event - This is recommended as it will only run the callback if your app actually had options passed to it.
 
 ```
