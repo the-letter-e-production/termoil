@@ -91,6 +91,59 @@ myapp.addSubRoutine(new Termoil.SubRoutine(['sub'], 'sub', mysubapp));
 
     myapp sub; #this will show usage info for mysubapp
 
+### Parse Argv
+```
+myapp.parse(Termoil.Skip(process.argv, 2));
+```
+> You only need to call `.parse` on your main app. Parsing of options for SubRoutines will be handled automatically
+
+> Options will cascade through SubRoutines. However, they will not be available upstream. `mysubapp` gets a copy of options from `myapp`, but `myapp` doesn't see options passed to `mysubapp`
+
+### Use Options
+There are two main ways to make use of options
+
+1. After calling parse - You can simply access the options using the Termoil getters after you've called `.parse`, since it's a synchronous method. This method can be annoying as you will have to write your own conditionals to handle whether or not options were in fact parsed or SubRoutines got called.
+2. Attach to the `.on('parsed')` event - This is recommended as it will only run the callback if your app actually had options passed to it.
+
+```
+//after parse example
+myapp.parse(Termoil.Skip(process.argv, 2));
+console.log(myapp.get());
+
+//on event example
+myapp.on('parsed', function(){
+    console.log(this.get());
+}).parse(Termoil.Skip(process.argv, 2));
+```
+> Using the `.on('parsed')` callback will allow you to access the instance of your Termoil Object using `this`
+
+### Helper Methods
+There are 3 main helper methods you should use to make scripting with termoil easier
+
+1. [.get](https://doclets.io/the-letter-e-production/termoil/master#dl-Termoil-get) - Get option(s)
+2. [.has](https://doclets.io/the-letter-e-production/termoil/master#dl-Termoil-has) - Check for existence of option
+3. [.has_all](https://doclets.io/the-letter-e-production/termoil/master#dl-Termoil-has_all) - Check for existence of options
+
+```
+myapp.on('parsed', function(){
+    //get example
+    var myopt = this.get('myopt'); //return option if exists, else returns false
+    var opts = this.get(); //return json object of all options
+
+    //has example
+    var boolean = this.has('myopt'); //returns true if option exists, else returns false
+    var boolean = this.has('myopt', function(myopt){ //returns callback if myopt exists
+        console.log(myopt); //value of myopt
+    }); //still returns same boolean
+    
+    //has all example
+    var boolean = this.has_all(['myopt', 'youropt']); //return true if both opts exist, else return false
+    var boolean = this.has_all(['myopt', 'youropt'], function(myopt, youropt){ //returns callback if both opts exist
+        console.log(myopt, youropt); //values of myopt and youropt
+    }); //still returns same boolean
+}).parse(Termoil.Skip(process.argv, 2));
+```
+
 ### Questions, Comments
 We hope this documentation is sufficient to get you started with Termoil. However, if you have any questions or require help please open a ticket on [GitHub](https://github.com/the-letter-e-production/termoil)
 
