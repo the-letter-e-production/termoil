@@ -144,6 +144,9 @@ myapp.on('parsed', function(){
 }).parse(Termoil.Skip(process.argv, 2));
 ```
 
+### New Features Roadmap
+You can find a list of enhancements that are on the roadmap by [clicking here](https://github.com/the-letter-e-production/termoil/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+
 ### Questions, Comments
 We hope this documentation is sufficient to get you started with Termoil. However, if you have any questions or require help please open a ticket on [GitHub](https://github.com/the-letter-e-production/termoil)
 
