@@ -64,7 +64,7 @@ define(function (require) {
         },
         'Option': {
             'Can Create': function(){
-                option = new Termoil.Option(['-f', '--foo'], 'foo', 'optional');
+                option = new Termoil.Option(['-f', '--foo'], 'foo', new Termoil.Option.Type('value'));
                 assert.isObject(option, 'Option Object created');
             },
             'Can Add': { 
@@ -73,12 +73,22 @@ define(function (require) {
                     assert.strictEqual(termoil._options[option.get('keys')[0]], option, 'Option was added');
                 },
                 'Required': function(){
-                    var req_option = new Termoil.Option(['-r', '--required'], 'req', 'required');
+                    var req_option = new Termoil.Option(['-r', '--required'], 'req', new Termoil.Option.Type('value', true));
                     termoil.addOption(req_option);
                     assert.strictEqual(termoil._options[req_option.get('keys')[0]], req_option, 'Option was added');
                 },
+                'Optional Repeating': function(){
+                    var option_value_repeating = new Termoil.Option(['-o', '--opt-repeating'], 'optRepeating', new Termoil.Option.Type('value', false, true));
+                    termoil.addOption(option_value_repeating);
+                    assert.strictEqual(termoil._options[option_value_repeating.get('keys')[0]], option_value_repeating, 'Option was added');
+                },
+                'Required Repeating': function(){
+                    var option_value_required_repeating = new Termoil.Option(['-l', '--last-repeating'], 'lastRepeating', new Termoil.Option.Type('value', true, true));
+                    termoil.addOption(option_value_required_repeating);
+                    assert.strictEqual(termoil._options[option_value_required_repeating.get('keys')[0]], option_value_required_repeating, 'Option was added');
+                },
                 'Flag': function(){
-                    var flg_option = new Termoil.Option(['-n', '--new-flag'], 'newFlag', 'flag');
+                    var flg_option = new Termoil.Option(['-n', '--new-flag'], 'newFlag', new Termoil.Option.Type('flag'));
                     termoil.addOption(flg_option);
                     assert.strictEqual(termoil._options[flg_option.get('keys')[0]], flg_option, 'Option was added');
                 }
@@ -91,8 +101,8 @@ define(function (require) {
                 subapp.name('Sub');
                 subapp.instructions('myapp [options] sub [options]');
                 subapp.addVersion(new Termoil.Version('1.0', true));
-                subapp.addOption(new Termoil.Option(['-b', '--bar'], 'bar', 'optional', 'My bar', 'default', function(val){ return val; }));
-                subapp.addOption(new Termoil.Option(['-f', '--flag'], 'flag', 'flag')); 
+                subapp.addOption(new Termoil.Option(['-b', '--bar'], 'bar', new Termoil.Option.Type('value'), 'My bar', 'default', function(val){ return val; }));
+                subapp.addOption(new Termoil.Option(['-f', '--flag'], 'flag', new Termoil.Option.Type('flag'))); 
                 subroutine = new Termoil.SubRoutine(['sub'], 'sub', subapp);
                 assert.isObject(subroutine, 'SubRoutine is ans `object`');
             },
@@ -114,9 +124,9 @@ define(function (require) {
             },
             'Both': function(){
                 termoil.reset();
-                termoil.parse(['-f', 'foo', '-r', 'required', 'sub', '-b', 'bar', '-f']);
-                assert.equal(JSON.stringify(termoil.get()), JSON.stringify({foo: 'foo', req: 'required'}), 'Main options parsed');
-                assert.equal(JSON.stringify(subapp.get()), JSON.stringify({foo: 'foo', req: 'required', bar: 'bar', flag: true}), 'Sub options parsed');
+                termoil.parse(['-f', 'foo', '-r', 'required', '-o', 'test', 'ing', 'opt', '-l', 'require', 'opt', '-n', 'sub', '-b', 'bar', '-f']);
+                assert.equal(JSON.stringify(termoil.get()), JSON.stringify({"foo":"foo","req":"required","optRepeating":["test","ing","opt"],"lastRepeating":["require","opt"],"newFlag":true}), 'Main options parsed');
+                assert.equal(JSON.stringify(subapp.get()), JSON.stringify({"foo":"foo","req":"required","optRepeating":["test","ing","opt"],"lastRepeating":["require","opt"],"newFlag":true,"bar":"bar","flag":true}), 'Sub options parsed');
             },
             'Option': {
                 'Optional': function(){
@@ -124,6 +134,12 @@ define(function (require) {
                 },
                 'Required': function(){
                     assert.equal(termoil.get('req'), 'required', 'required == required');
+                },
+                'Optional Repeating': function(){
+                    assert.equal(JSON.stringify(termoil.get('optRepeating')), JSON.stringify(['test', 'ing', 'opt']), 'multi opt was parsed');
+                },
+                'Required Repeating': function(){
+                    assert.equal(JSON.stringify(termoil.get('lastRepeating')), JSON.stringify(['require', 'opt']), 'multi opt was parsed');
                 },
                 'Flag': function(){
                     assert.isTrue(subapp.get('flag'), 'flag === true');
