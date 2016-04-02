@@ -60,11 +60,16 @@ define(function (require) {
                 termoil.reset();
                 var code = termoil.parse(['-v']);
                 assert.equal(code, '0', 'Exited with code 0');
+            },
+            'Get With Option and Value': function(){
+                termoil.reset();
+                var code = termoil.parse(['-v', 'active']);
+                assert.equal(code, '0', 'Exited with code 0');
             }
         },
         'Option': {
             'Can Create': function(){
-                option = new Termoil.Option(['-f', '--foo'], 'foo', new Termoil.Option.Type('value'));
+                option = new Termoil.Option(['-f', '--foo'], 'foo', new Termoil.Option.Type('value'), 'Description', null, function(val){ return 'filtered:' + val; });
                 assert.isObject(option, 'Option Object created');
             },
             'Can Add': { 
@@ -73,7 +78,7 @@ define(function (require) {
                     assert.strictEqual(termoil._options[option.get('keys')[0]], option, 'Option was added');
                 },
                 'Required': function(){
-                    var req_option = new Termoil.Option(['-r', '--required'], 'req', new Termoil.Option.Type('value', true));
+                    var req_option = new Termoil.Option(['-r', '--required'], 'req', new Termoil.Option.Type('value', true), 'Description', null, function(val){ return 'filtered:' + val; });
                     termoil.addOption(req_option);
                     assert.strictEqual(termoil._options[req_option.get('keys')[0]], req_option, 'Option was added');
                 },
@@ -92,6 +97,14 @@ define(function (require) {
                     termoil.addOption(flg_option);
                     assert.strictEqual(termoil._options[flg_option.get('keys')[0]], flg_option, 'Option was added');
                 }
+            },
+            'Invalid Type': function(){
+                var invalid_option = new Termoil.Option(['-i', '--invalid'], 'invalidType', new Termoil.Option.Type('invalid'));
+                var invalid_app = new Termoil;
+                    invalid_app._test_mode = true;
+                    invalid_app.addOption(invalid_option);
+                    invalid_app.parse(['-i']);
+                    assert.isTrue(invalid_app._error_state, 'Invalid option results in error state');
             }
         },
         'SubRoutine': {
@@ -109,13 +122,19 @@ define(function (require) {
             'Can Add': function(){
                 termoil.addSubRoutine(subroutine);
                 assert.strictEqual(termoil._subroutines[subroutine.get('keys')[0]].get('type'), subroutine.get('type'), 'SubRoutine was added');
+            },
+            'Unknown': function(){
+                var invalid_subroutine_app = new Termoil;
+                    invalid_subroutine_app._test_mode = true;
+                    invalid_subroutine_app.parse(['unknown']);
+                    assert.isTrue(invalid_subroutine_app._error_state, 'Unknown SubRoutine results in error state');
             }
         },
         'Parse': {
             'Main': function(){
                 termoil.reset();
                 termoil.parse(['-f', 'foo']);
-                assert.equal(JSON.stringify(termoil.get()), JSON.stringify({foo: 'foo'}), 'Main options parsed');
+                assert.equal(JSON.stringify(termoil.get()), JSON.stringify({foo: 'filtered:foo'}), 'Main options parsed');
             },
             'Sub': function(){
                 termoil.reset();
@@ -125,15 +144,15 @@ define(function (require) {
             'Both': function(){
                 termoil.reset();
                 termoil.parse(['-f', 'foo', '-r', 'required', '-o', 'test', 'ing', 'opt', '-l', 'require', 'opt', '-n', 'sub', '-b', 'bar', '-f']);
-                assert.equal(JSON.stringify(termoil.get()), JSON.stringify({"foo":"foo","req":"required","optRepeating":["test","ing","opt"],"lastRepeating":["require","opt"],"newFlag":true}), 'Main options parsed');
-                assert.equal(JSON.stringify(subapp.get()), JSON.stringify({"foo":"foo","req":"required","optRepeating":["test","ing","opt"],"lastRepeating":["require","opt"],"newFlag":true,"bar":"bar","flag":true}), 'Sub options parsed');
+                assert.equal(JSON.stringify(termoil.get()), JSON.stringify({"foo":"filtered:foo","req":"filtered:required","optRepeating":["test","ing","opt"],"lastRepeating":["require","opt"],"newFlag":true}), 'Main options parsed');
+                assert.equal(JSON.stringify(subapp.get()), JSON.stringify({"foo":"filtered:foo","req":"filtered:required","optRepeating":["test","ing","opt"],"lastRepeating":["require","opt"],"newFlag":true,"bar":"bar","flag":true}), 'Sub options parsed');
             },
             'Option': {
                 'Optional': function(){
-                    assert.equal(termoil.get('foo'), 'foo', 'foo == foo');
+                    assert.equal(termoil.get('foo'), 'filtered:foo', 'foo == foo');
                 },
                 'Required': function(){
-                    assert.equal(termoil.get('req'), 'required', 'required == required');
+                    assert.equal(termoil.get('req'), 'filtered:required', 'required == required');
                 },
                 'Optional Repeating': function(){
                     assert.equal(JSON.stringify(termoil.get('optRepeating')), JSON.stringify(['test', 'ing', 'opt']), 'multi opt was parsed');
@@ -147,7 +166,7 @@ define(function (require) {
             }
         },
         'Get': function(){
-            assert.equal(termoil.get('foo'), 'foo', 'foo == foo');
+            assert.equal(termoil.get('foo'), 'filtered:foo', 'foo == foo');
         },
         'Has': function(){
             assert.isTrue(termoil.has('foo'), 'myapp has foo');
@@ -156,7 +175,7 @@ define(function (require) {
             var deferred = q.defer();
 
             termoil.has('foo', function(foo){
-                if( foo == 'foo' ){
+                if( foo == 'filtered:foo' ){
                    return deferred.resolve(true);
                 }
 
@@ -172,7 +191,7 @@ define(function (require) {
             var deferred = q.defer();
 
             subapp.has_all(['foo', 'bar'], function(foo, bar){
-                if( foo == 'foo' && bar == 'bar' ){
+                if( foo == 'filtered:foo' && bar == 'bar' ){
                     return deferred.resolve(true);
                 }
 
