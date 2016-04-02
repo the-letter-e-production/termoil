@@ -9,7 +9,7 @@ define(function (require) {
         'Can Require': function(){
             Termoil = require('intern/dojo/node!../../index');
         },
-        'Is Function': function(){
+        /*'Is Function': function(){
             assert.isFunction(Termoil, 'Termol is a `function`');
         },
         'Instance Is Object': function(){
@@ -204,6 +204,6 @@ define(function (require) {
                 var code = termoil.parse(['-no-opt']);
                 assert.isTrue(termoil._error_state, 'Exited with code 1');
             }
-        }
+        }*/
     });
 });
