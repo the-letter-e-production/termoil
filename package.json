@@ -27,5 +27,9 @@
     "chalk": "^1.1.1",
     "intern": "^3.0.6",
     "q": "^1.4.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {}
 }
