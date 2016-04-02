@@ -50,7 +50,7 @@ myapp.addVersion(new Termoil.Version('1.0', true)) //add active version 1.0
 ### Add options
 
 ```
-myapp.addOption(new Termoil.Option(['-n', '-N', '--name'], 'userName', 'required', 'User name field', 'John Smith', function(val){ return val.toLowerCase(); }));
+myapp.addOption(new Termoil.Option(['-n', '-N', '--name'], 'userName', new Termoil.Option.Type('value', true), 'User name field', 'John Smith', function(val){ return val.toLowerCase(); }));
 ```
 
 __The Option Object:__
@@ -76,6 +76,19 @@ The option object is the most complex, customizable and useful class in the Term
     - `var default = 'Default Value';`
  - filter - A function to pass the option value through
     - `var filter = function(val){ return parseInt(val); };`
+
+__The Option Type Object:__
+
+The option type object allows you to determine the behavior of each option.
+
+*Option Type Args:* `new Termoil.Option.Type(key, required, repeating);`
+
+- key - The type of option to be used. Either 'value' or 'flag'.
+    - value - An option that accepts a value
+    - flag - An option that returns true when set
+- required - A boolean used for value options to denote a required to be passed after the option
+- repeating - A boolean used for value options to denote multiple values may be passed after the option
+    - repeating values will be stored in an array
 
  
 ### Add A SubRoutine
