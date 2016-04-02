@@ -4,9 +4,11 @@ define(function (require) {
     var q = require('intern/dojo/node!q');
 
     var Termoil, termoil, version, option, subapp, subroutine;
-    Termoil = require('intern/dojo/node!../../index');
     registerSuite({
         name: 'Termoil',
+        'Can Require': function(){
+            Termoil = require('intern/dojo/node!../../index');
+        },
         'Is Function': function(){
             assert.isFunction(Termoil, 'Termol is a `function`');
         },
