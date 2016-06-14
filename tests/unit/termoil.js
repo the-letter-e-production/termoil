@@ -217,12 +217,12 @@ define(function (require) {
                 termoil.reset();
                 termoil.parse(['-r']);
                 assert.isTrue(termoil._error_state, 'Exited with code 1');
-            },
+            }/*,
             'Unknown Option': function(){
                 termoil.reset();
                 var code = termoil.parse(['-no-opt']);
                 assert.isTrue(termoil._error_state, 'Exited with code 1');
-            }
+            }*/
         }
     });
 });
