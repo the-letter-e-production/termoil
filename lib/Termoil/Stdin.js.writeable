@@ -1,0 +1,13 @@
+var stream = require('stream');
+var util = require('util');
+var Writable = stream.Writable;
+var Termoil_Stdin = function(){
+        Writable.call(this, {objectMode: true});
+    };
+    util.inherits(Termoil_Stdin, Writable);
+
+    Termoil_Stdin.prototype._write = function(chunk, encoding, callback){
+        this.emit('data', chunk);
+    };
+
+module.exports = Termoil_Stdin;
